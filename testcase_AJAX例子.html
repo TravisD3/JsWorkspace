@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <botton id = 'XML' type = ' botton'>Request</botton>
+    <script>
+        (function(){
+            var httpRequest;
+            document.getElementById('XML').addEventListener('click',makeRequset);
+
+            function makeRequset(){
+                httpRequest = new XMLHttpRequest();
+
+                if(!httpRequest){
+                    alert('No way to make a requset')
+                    return false;
+                }else{
+                    httpRequest.onreadystatechange = alertContent;
+                    httpRequest.open('GET','https://reqres.in/api/users?page=2');
+                    httpRequest.send();
+                }
+            }   
+            
+            function alertContent(){
+                try{
+                    if(httpRequest.readyState === XMLHttpRequest.DONE){
+                        if(httpRequest.status === 200){
+                            alert(httpRequest.responseText)
+                        }else{
+                            alert('there is a problem with the request');
+                        }
+                    }
+                }    
+                catch(e){
+                    alert('Caught Exception: ' + e.description);
+                }
+            }    
+    })();
+
+
+    </script>
+</body>
+</html>
